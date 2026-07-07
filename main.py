@@ -247,10 +247,16 @@ if st.session_state["step_1_ok"]:
     
     with col_norm_2: 
         if st.session_state["step_2_ok"]:
-            if st.session_state["df_norm"] is not None and len(st.session_state["df_norm"])>0:
+            # Guard against edge-cases where state drops temporarily on cloud instances
+            if st.session_state["df_norm"] is None or (isinstance(st.session_state["df_norm"], pd.DataFrame) and st.session_state["df_norm"].empty):
+                # If it dropped, re-compute it safely out of the button context
+                st.session_state["df_norm"] = first_processing(st.session_state['df_vals'], dataprep1)
+
+            if len(st.session_state["df_norm"]) > 0:
                 st.subheader(':blue[Data after SPIMP processing:]')
                 st.dataframe(st.session_state["df_norm"])
                 
+            
                 # Visualization
                 if dataprep1 == "Other?":
                     ct.display_other_plot()
