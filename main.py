@@ -247,7 +247,7 @@ if st.session_state["step_1_ok"]:
     
     with col_norm_2: 
         if st.session_state["step_2_ok"]:
-            if len(st.session_state["df_norm"])>0:
+            if st.session_state["df_norm"] is not None and len(st.session_state["df_norm"])>0:
                 st.subheader(':blue[Data after SPIMP processing:]')
                 st.dataframe(st.session_state["df_norm"])
                 
