@@ -322,8 +322,10 @@ if st.session_state["step_2_ok"]:
         if submit_button_3_3:
             st.session_state["step_3_3_ok"] = True
             vals = st.session_state["df_norm"].astype(float).values
+            # Extract the raw label string from the list wrapper
+            label_col = st.session_state['main_label'][0] if isinstance(st.session_state['main_label'], list) else st.session_state['main_label']
             ct.clustering(vals, 
-                          st.session_state['df_raw'][st.session_state['main_label']],
+                          st.session_state['df_raw'][label_col],
                           st.session_state["cluster_label"])
             
             
