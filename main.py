@@ -321,7 +321,7 @@ if st.session_state["step_2_ok"]:
             
         if submit_button_3_3:
             st.session_state["step_3_3_ok"] = True
-            vals = st.session_state["df_norm"].as_type(float).values
+            vals = st.session_state["df_norm"].astype(float).values
             ct.clustering(vals, 
                           st.session_state['df_raw'][st.session_state['main_label']],
                           st.session_state["cluster_label"])
